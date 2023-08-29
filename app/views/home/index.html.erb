@@ -1,0 +1,52 @@
+<h5 class="text-center my-5">Items</h5>
+<div class="row hidden-md-up">
+  <% @items.each do |item|%>
+    <div class="col-md-4">
+      <div class="card my-2">
+        <div class="card-block">
+          <%= image_tag(item.image,alt:"Card image cap", height: 200, class:"card-img-top") %>
+          <div id="flag"><p class="cat"><%= item.category.name%><p></div>
+          <div class="p-3">
+            <div class="d-flex justify-content-between align-items-center my-2">
+              <h6 class="card-subtitle text-muted"><%= item.name%></h6>
+              <span class="bg-success text-light px-2 rounded rating">5.0 *</span>
+            </div>
+            <div class="d-flex justify-content-between" style="gap: 16px;"> 
+              <p class="card-text col-md-8">Some quick example text to build on the card title .</p>
+              <p class="col-md-4 item-price" >₹200 for one</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
+
+<style type="text/css">
+  .item-price{
+    color: #6a595980;
+    font-size: 15px;
+  }
+  .rating{
+    font-size: 15px;
+  }
+
+.card-block{
+  position: relative;
+}
+.card-block .cat{
+      text-align: left;
+    padding: 8px 11px;
+}
+  #flag {
+    clip-path: polygon(100% 0%, 80% 50%, 100% 100%, 0 100%, 0% 31%, 0 0);
+    background-color: #009557;
+    width: 121px;
+    height: 42px;
+    position: absolute;
+    top: 0px;
+    color: #fff;
+    font-weight: 800;
+    border-left: 10px solid #ff2300;
+  }
+</style>

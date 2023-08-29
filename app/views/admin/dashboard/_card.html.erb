@@ -1,0 +1,49 @@
+<div class="card-container">
+  <div class="sm_card">
+    <h5>Item Count</h5>
+    <p><%= @item_details.count%></p>
+  </div>
+  <div class="sm_card">
+    <h5>Users Count</h5>
+    <p><%= @users.count%></p>
+  </div>
+  <div class="sm_card">
+    <h5>Restaurants</h5>
+    <p><%= Restaurant.all.count%></p>
+  </div>
+  <div class="sm_card">
+    <h5>Categories</h5>
+    <p><%= @categories.count%></p>
+  </div>
+</div>
+
+<style type="text/css">
+  .card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sm_card{
+    width: 22%;
+    background-color: #1D267D;
+    margin: 5px;
+    /* height: 100px; */
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    padding: 31px 1px;
+  }
+  .sm_card:nth-child(odd){
+    background-color: #FB2576;
+  }
+  .sm_card h5{
+    margin: 0 0 8px 0;
+    font-size: 19px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .sm_card p{
+    margin: 0;
+    font-weight: 800;
+  }
+</style>

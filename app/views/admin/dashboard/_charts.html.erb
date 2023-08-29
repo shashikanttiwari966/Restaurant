@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="user-count">
+    <%= pie_chart User.group(:created_at).count, width: "100px", height: "500px" %>
+    <p>Created at User</p>
+  </div>
+  <div class="user-count">
+    <%= pie_chart User.group(:created_at).count %>
+    <p>Created at User</p>
+  </div>
+  <div class="user-count">
+    <%= pie_chart User.group(:created_at).count %>
+    <p>Created at User</p>
+  </div>
+</div>
+
+<style type="text/css">
+  .card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card p{
+    text-align: center;
+  }
+</style>
+
+<script type="text/javascript">
+  Chartkick.options = {
+    width: "100px",
+  height: "100px",
+  colors: ["#b00", "#666"]
+}
+</script>

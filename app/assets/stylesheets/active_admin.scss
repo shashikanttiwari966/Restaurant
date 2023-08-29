@@ -1,0 +1,85 @@
+// Sass variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "arctic_admin/base";
+@import "arctic_admin/src/scss/main";
+$primary-color: #2dbb43;
+
+// Overriding any non-variable Sass must be done after the fact.
+// For example, to change the default status-tag color:
+//
+//   .status_tag { background: #6090DB; }
+
+.columns{
+  padding: 20px 0px;
+}
+
+/*admin dashboard*/
+.site_title{
+  background: #070A52 !important;
+  color: white;
+}
+
+#utility_nav{
+  background: #1D267D !important;
+}
+
+.menu_item a:before {
+  color: white !important;
+}
+
+#reportrange{
+  background: #fff;
+  cursor: pointer;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  width: 35%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-item a {
+    font-size: 16px;
+}
+
+/*dashboard filter css*/
+#filter-button{
+  background-color: #1D267D;
+}
+
+.dashboard-search {
+    display: flex;
+/*    justify-content: space-between;*/
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.dashboard-search input[type='submit']{
+  padding: 10px;
+}
+
+#filter-form .error{
+  color: red;
+  padding: 7px 48px;
+}    
+
+.to-filter, .from-filter{
+  width: 37%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.submit-btn{
+  width: 17%;
+  margin-left: 5px;
+}
