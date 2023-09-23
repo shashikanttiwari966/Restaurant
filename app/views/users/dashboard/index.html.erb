@@ -1,0 +1,125 @@
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <% @card_item.each do |card_item|%>
+      <div class="carousel-item active h-25">
+        <%= image_tag card_item.menu.item_detail.image, class:"d-block w-100"%>
+        <div class="carousel-caption d-none d-md-block">
+          <h5><%= card_item.menu.item_detail.name%></h5>
+          <p>Some representative placeholder content for the first slide.</p>
+        </div>
+      </div>
+    <%end%>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<hr>
+<section class="lists-card-item">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row card-item-header card-item-comon">
+        <div class="col-sm-3">Item</div>
+        <div class="col-sm-3">Name</div>
+        <div class="col-sm-3">Quantity</div>
+        <div class="col-sm-3">Price</div>
+      </div>
+      <% @card_item.each do |card_item|%>
+        <div class="row card-item-comon align-items-center">
+          <div class="col-sm-3"><%= image_tag card_item.menu.item_detail.image, width:"100", height:"50"%></div>
+          <div class="col-sm-3"><%= card_item.menu.item_detail.name%></div>
+          <div class="col-sm-3">
+            <div class="wrapper" id="wrapper-card-<%= card_item.menu.id%>">
+              <span class="minus"><i class="fa-solid fa-minus"></i></span>
+              <span class="num" id="card-item-qty-<%= card_item.menu.id%>">1</span>
+              <span class="plus"><i class="fa-solid fa-plus"></i></span>
+            </div>
+          </div>
+          <div class="col-sm-3"><%= card_item.menu.price%> <i class="fa-solid fa-circle-xmark"></i></div>
+        </div>
+      <%end%>
+    </div>
+    <div class="col-sm-6 px-5 py-3 bill-details">
+      <div class="row text-center mx-5">
+        <p class="my-3">Total Price: ₹<%= get_total_price(current_user.card)%></p>
+      </div>
+      <div class="item-info mx-5">   
+        <div class="row text-font">
+          <div class="col-sm-6">Item Price:</div>
+          <div class="col-sm-6 text-end"> ₹<%= get_item_price(current_user.card)%></div>
+        </div>
+        <div class="row text-font">
+          <div class="col-sm-6">Gst %:</div>
+          <div class="col-sm-6 text-end"> ₹<%= get_gst(current_user.card)%></div>
+        </div>
+        <div class="row text-font">
+          <div class="col-sm-6">Tax %:</div>
+          <div class="col-sm-6 text-end"> ₹<%= get_tax(current_user.card)%></div>
+        </div>
+        <div class="row text-font">
+          <div class="col-sm-6">Delivery Charge:</div>
+          <div class="col-sm-6 text-end"> ₹40</div>
+        </div>
+      </div>
+      <div class="row text-center mx-5">
+        <button class="btn btn-primary btn-sm my-2">Place Order</button>
+        <%= link_to "Clear Cart", delete_items_users_dashboard_index_path(), method: :delete, data: {confirm: "Are you sure?"}, class:"btn btn-danger btn-sm third"%>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+<style type="text/css">
+
+  .bill-details{
+    background: #fff;
+  }
+
+  .item-info{
+    background: #f8f9fb;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .card-item-comon, .text-font{
+    font-size: 12px;
+  }
+
+  .card-item-header{
+    padding: 10px 0px;
+    border-bottom: 2px solid red;
+    margin: 10px 0px;
+  }
+
+  .wrapper{
+    color: #fff;
+    height: 30px;
+    min-width: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #009557;
+    border-radius: 4px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  }
+  .wrapper span{
+    width: 100%;
+    text-align: center;
+    user-select: none;
+  }
+  .wrapper span.num{
+    border-right: 2px solid rgba(0,0,0,0.2);
+    border-left: 2px solid rgba(0,0,0,0.2);
+    pointer-events: none;
+  }
+</style>

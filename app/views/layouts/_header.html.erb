@@ -1,16 +1,21 @@
 <nav class="navbar navbar-expand navbar-light">
-  <%= image_tag("restaurant.png", width: 40, class:"navbar-brand mx-3 rounded-circle") %>
+  <i class="fa-solid fa-utensils fa-bounce custome-food-i"></i>
+  <%#= image_tag("https://www.freelogoservices.com/api/main/images/1j+ojlxEOMkX9Wyqfhe43D6kh...OGrBdImhbFwXs1M3EMoAJtlikpjvRo9f8...PExevg9C3ktKMcs8", width: 80, class:"navbar-brand mx-3 rounded-circle") %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item active">
         <%= link_to "Home", root_path(), class:"nav-link text-dark"%>
       </li>
       <li class="nav-item">
-        <%= link_to "Restaurant", restaurants_path(), class:"nav-link text-dark"%>
+        <%if signed_in?%>
+          <%= link_to "Restaurant", restaurant_owners_path(), class:"nav-link text-dark"%>
+        <%else%>
+          <%= link_to "Restaurant", restaurants_path(), class:"nav-link text-dark"%>
+        <%end%>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -25,9 +30,44 @@
         </div>
       </li>
     </ul>
+
+    <div class="px-3 d-flex">
+      <% if signed_in?%>
+        <%= link_to "<i class='fa-solid fa-right-from-bracket'></i>".html_safe, destroy_user_user_session_path(current_user), method: :delete, class:"nav-item"%>
+      <%else%>
+        <a class="nav-link dropdown-toggle" href="javascript:;" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Login
+        </a>
+        <div class="dropdown-menu login-dropdown" aria-labelledby="loginDropdown">
+          <a href="#" class="dropdown-item">New Customer? <span style="color: #2a55e5;">SingUp</span></a>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" class="dropdown-item">Login As Owner</a>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#loginAsUser" class="dropdown-item">Login As User</a>
+        </div>
+      <%end%>
+    </div>
     <!-- <form class="form-inline my-2 my-lg-0 d-flex">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form> -->
   </div>
 </nav>
+
+<!-- login as owner -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <%= render "layouts/login_partial/owner_login"%>
+      </div>
+  </div>
+</div>
+
+<!-- login as user -->
+<div class="modal fade modal-lg" id="loginAsUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <%= render "layouts/login_partial/user_login"%>
+    </div>
+  </div>
+</div>
+
+<%#= stylesheet_link_tag 'header'%>

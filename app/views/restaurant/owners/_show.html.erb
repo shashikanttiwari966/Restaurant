@@ -1,0 +1,24 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="restaurantLable">Restaurant</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <div class="card" style="width: 29rem;">
+      <%= image_tag restaurant.image, class:"card-img-top"%>
+      <div class="card-body">
+        <h5 class="card-title"><%= restaurant.name%></h5>
+        <p class="card-text">
+          <b>Opened At: </b><%= restaurant.opened_on%>
+        </p>
+        <div class="row py-3">
+          <div class="col-sm-6">
+            <p class="card-text"><b>Opening Time: </b><%= restaurant.open_time.strftime("%I:%M%p")%></p>
+          </div>
+          <div class="col-sm-6"><b>Closing Time: </b><%= restaurant.close_time.strftime("%I:%M%p")%></div>
+        </div>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>

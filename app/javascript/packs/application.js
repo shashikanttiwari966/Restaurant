@@ -9,15 +9,30 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "jquery"
 import 'bootstrap';
+// import 'sweetalert2'
+// import 'sweet-alert2-rails'
 
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+window.Swal = Swal;
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-// document.addEventListener("turbolinks:load", function () {
-//   $(function () {
-//     $('[data-toggle="tooltip"]').tooltip();
-//     $('[data-toggle="popover"]').popover();
-//   });
-// });
+$( document ).ready(function() {
+  new SlimSelect({
+    select: '#menu_item_detail_id',
+  })
+
+  window.addEventListener('popstate', function(event) {
+    // if (event.state === null) {
+      window.location.href = '/';
+    // }
+  });
+
+  document.querySelector(".third").addEventListener('click', function(){
+    Swal.fire({"showConfirmButton":true, "timer": 1000,"allowOutsideClick":false,"confirmButtonText":"Okay","type":"error","text":"Car Item deleted successfully!","title":"Deleted!", "icon":"success"})
+    // Swal.fire("Deleted!", "Card Item deleted successfully!", "success", "Okay");
+  });
+
+});

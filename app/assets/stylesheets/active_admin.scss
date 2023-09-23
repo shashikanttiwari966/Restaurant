@@ -28,7 +28,7 @@ $primary-color: #2dbb43;
   color: white;
 }
 
-#utility_nav{
+#utility_nav, .action input[type="submit"] {
   background: #1D267D !important;
 }
 
@@ -48,6 +48,33 @@ $primary-color: #2dbb43;
 
 .header-item a {
     font-size: 16px;
+}
+
+/*.daterangepicker{
+  width: 27% !important;
+}
+
+.daterangepicker li{
+  font-size: 15px !important;
+}
+
+.daterangepicker ul{
+    width: 345px !important;
+}*/
+
+.action_item a {
+  background-color: #1D267D !important;
+}
+
+#filters_sidebar_section{
+  background: #070A52;
+  color: white;
+  border-radius: 8px;
+}
+
+#sidebar:before {
+  background-color: #070A52 !important;
+  color: white;
 }
 
 /*dashboard filter css*/

@@ -1,43 +1,106 @@
-<h5 class="text-center my-5">Items</h5>
-<div class="row hidden-md-up">
-  <% @items.each do |item|%>
-    <div class="col-md-4">
-      <div class="card my-2">
-        <div class="card-block">
-          <%= image_tag(item.image,alt:"Card image cap", height: 200, class:"card-img-top") %>
-          <div id="flag"><p class="cat"><%= item.category.name%><p></div>
-          <div class="p-3">
-            <div class="d-flex justify-content-between align-items-center my-2">
-              <h6 class="card-subtitle text-muted"><%= item.name%></h6>
-              <span class="bg-success text-light px-2 rounded rating">5.0 *</span>
-            </div>
-            <div class="d-flex justify-content-between" style="gap: 16px;"> 
-              <p class="card-text col-md-8">Some quick example text to build on the card title .</p>
-              <p class="col-md-4 item-price" >₹200 for one</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<h5 class="text-center my-5">Categories</h5>
+<div class="row align-items-center d-flex justify-content-center">
+  <% @categories.each do |cat|%>
+    <!-- <div class="cat-name"> -->
+      <%= link_to cat.name, root_path(category_id: cat.id), class:"cat-name", style:"#{get_background(cat)}" %>
+    <!-- </div> -->
+  <%end%>
+</div>
+
+<h5 class="text-center mt-5 mb-2">Items</h5>
+<div class="row hidden-md-up menu-lists">
+  <%= render "home/index"%>
+</div>
+<div class="">dsa</div>
+<div class="">sad</div>
+<div class="bg-danger w-100 added-item <%= get_card_items_class(current_user)%>">
+  <%= form_tag "/users/dashboard", method: :get, class:"d-flex", id:"submit-item" do%>
+    <p class="m-0 text-light fw-bold">
+      <i class="fa-brands fa-shopify"></i><span id="item-value"><%= get_card_items(current_user)%> item added<span>
+    </p>
+    <button class="btn btn-success btn-sm"> Next >></button>
   <%end%>
 </div>
 
 <style type="text/css">
+
+  .wrapper{
+    color: #fff;
+    height: 30px;
+    min-width: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #009557;
+    border-radius: 4px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  }
+  .wrapper span{
+    width: 100%;
+    text-align: center;
+    user-select: none;
+  }
+  .wrapper span.num{
+    border-right: 2px solid rgba(0,0,0,0.2);
+    border-left: 2px solid rgba(0,0,0,0.2);
+    pointer-events: none;
+  }
+
+  #submit-item{
+    justify-content: flex-end;
+    gap: 36px;
+  }
+
+  .added-item{
+    position: fixed;
+    bottom: 5px;
+    max-width: 1225px;
+    border-radius: 5px;
+    align-items: center;
+    padding: 13px 50px;
+    font-size: 17px;
+  }
+
+  .cat-name{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    margin: 0px 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid gray;
+    box-shadow: 0px 0px 5px #0a0909;
+  }
+
+  .cat-name:nth-child(odd){
+    background-color: #009557;
+  }
+
   .item-price{
     color: #6a595980;
     font-size: 15px;
   }
+
   .rating{
     font-size: 15px;
   }
 
-.card-block{
-  position: relative;
-}
-.card-block .cat{
-      text-align: left;
-    padding: 8px 11px;
-}
+  .card-block{
+    position: relative;
+    box-shadow: 0px 0px 10px gray;
+  }
+
+  .card-block .cat{
+        text-align: left;
+      padding: 8px 11px;
+  }
+
   #flag {
     clip-path: polygon(100% 0%, 80% 50%, 100% 100%, 0 100%, 0% 31%, 0 0);
     background-color: #009557;
@@ -48,5 +111,15 @@
     color: #fff;
     font-weight: 800;
     border-left: 10px solid #ff2300;
+  }
+
+  #flag-like{
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    color: #cf1818;
+    font-weight: 800;
+    font-size: 25px;
+    cursor: pointer;
   }
 </style>

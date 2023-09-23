@@ -1,0 +1,47 @@
+<div class="p-3">
+  <%= form_for menu, url: path do |f|%>
+    <div class="form-group">
+      <%= f.hidden_field :restaurant_id, value:"#{restaurant.id}", class:"form-control"%>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="message-text" class="col-form-label">Item Name:</label>
+      <%if menu.new_record?%>
+        <%= f.collection_select :item_detail_id, select_items_resto(restaurant), :last, :first, { prompt: "Select a status" },class: 'form-select form-select-sm'%>
+      <%else%>
+        <strong class="px-2"><%= menu.item_detail.name%></strong>
+        <%= f.hidden_field :item_detail_id, value: menu.item_detail.id%>
+      <%end%>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="message-text" class="col-form-label">Price:</label>
+      <%= f.text_field :price, class:"form-control"%>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="message-text" class="col-form-label">Description:</label>
+      <%= f.text_area :description, class:"form-control"%>
+    </div>
+
+    <div class="form-check mb-3">
+      <label for="message-text" class="form-check-label">Available:</label>
+      <%= f.check_box :available, class:"form-check-input"%>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="message-text" class="col-form-label">Availability Status:</label>
+      <%= f.collection_select :availability_status, Menu.availibility_statuses, :last, :first, { prompt: "Select a status" },class: 'form-select form-select-sm'%>
+    </div>
+
+    <div class="action">
+      <%= f.submit "Save", class:"btn btn-primary py-2"%>
+    </div>
+  <%end%>
+</div>
+
+<style type="text/css">
+  .action input[type="submit"] {
+    background: #e77e11 !important;
+  }
+</style>

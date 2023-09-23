@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_28_094108) do
+ActiveRecord::Schema.define(version: 2023_09_22_044450) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -54,10 +54,28 @@ ActiveRecord::Schema.define(version: 2023_08_28_094108) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "card_items", force: :cascade do |t|
+    t.integer "card_id", null: false
+    t.integer "menu_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_card_items_on_card_id"
+    t.index ["menu_id"], name: "index_card_items_on_menu_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_cards_on_user_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "gst"
+    t.float "tax"
   end
 
   create_table "delivery_people", force: :cascade do |t|
@@ -96,13 +114,25 @@ ActiveRecord::Schema.define(version: 2023_08_28_094108) do
     t.integer "restaurant_id", null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "likeable_id"
+    t.string "likeable_type"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "menus", force: :cascade do |t|
     t.integer "restaurant_id", null: false
+    t.integer "item_detail_id", null: false
     t.float "price"
     t.boolean "available"
     t.integer "availability_status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
+    t.index ["item_detail_id"], name: "index_menus_on_item_detail_id"
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
   end
 
@@ -137,6 +167,8 @@ ActiveRecord::Schema.define(version: 2023_08_28_094108) do
     t.time "close_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_restaurants_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -167,6 +199,9 @@ ActiveRecord::Schema.define(version: 2023_08_28_094108) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "fssi_number"
+    t.string "secret_code"
+    t.bigint "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -187,6 +222,10 @@ ActiveRecord::Schema.define(version: 2023_08_28_094108) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "card_items", "cards"
+  add_foreign_key "card_items", "menus"
+  add_foreign_key "cards", "users"
+  add_foreign_key "menus", "item_details"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "orders", "item_details"
   add_foreign_key "promotions", "item_details"

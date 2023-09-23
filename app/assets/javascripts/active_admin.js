@@ -6,18 +6,18 @@
 $(document).ready(function() {
   $('#filter-button').click(function(event) {
     $('#datepicker-id').val($('#reportrange').find('span').text())
-    event.preventDefault();
-    var from = $('#from').val();
-    var to = $('#to').val();
-    if (from === "" || to === ""){
-      $(".error").text("From date OR To date can't blank");
-    }
-    else if(from > to){
-      $(".error").text("From date should be greater than To date");
-    }
-    else{
+    // event.preventDefault();
+    // var from = $('#from').val();
+    // var to = $('#to').val();
+    // if (from === "" || to === ""){
+    //   $(".error").text("From date OR To date can't blank");
+    // }
+    // else if(from > to){
+    //   $(".error").text("From date should be greater than To date");
+    // }
+    // else{
       $("form").submit();
-    }
+    // }
   });
 
 
@@ -31,6 +31,7 @@ $(function() {
     $('#reportrange').daterangepicker({
         startDate: start,
         endDate: end,
+        minViewMode: "years",
         ranges: {
            'Today': [moment(), moment()],
            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

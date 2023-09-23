@@ -1,0 +1,57 @@
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+<script>
+  const ctx = document.getElementById('myChart');
+  debugger
+  const cat = "<%= @categories.order(:name).pluck(:name) %>"
+  const group = "<%= @category_chart.group(:name).count.to_a%>"
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: JSON.parse(cat.replaceAll('&quot;','"')),
+      datasets: [{
+        label: 'Number of item',
+        data: JSON.parse(group.replaceAll('&quot;','"')),
+        borderWidth: 3,
+        borderCapStyle: 'butt',
+        fill: false,
+        borderColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        // borderDash: [2],
+        // borderDashOffset: 1.0,
+        borderJoinStyle: 'round',
+        tension: 0.1,
+        shadowBlur: 10,
+        shadowColor: 'rgba(0, 0, 0, 0.5)',
+        pointBevelWidth: 3,
+        pointBevelHighlightColor: 'rgba(255, 255, 255, 0.75)',
+        pointBevelShadowColor: 'rgba(0, 0, 0, 0.5)',
+        pointShadowOffsetX: 3,
+        pointShadowOffsetY: 3,
+        pointShadowBlur: 10,
+        pointShadowColor: 'rgba(0, 0, 0, 0.5)',
+        pointHoverInnerGlowWidth: 20,
+        pointHoverInnerGlowColor: 'rgba(255, 255, 0, 0.5)',
+        pointHoverOuterGlowWidth: 20,
+        pointHoverOuterGlowColor: 'rgba(255, 255, 0, 1)',
+        // backgroundOverlayColor: ctx.createPattern(img, 'repeat'),
+        backgroundOverlayMode: 'multiply'
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>

@@ -63,6 +63,16 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
     end
+
+    columns do
+      column do
+        panel "Chart Analytics" do
+          div do
+            render 'admin/dashboard/chatjs_line'
+          end
+        end
+      end
+    end
   end
 
   controller do

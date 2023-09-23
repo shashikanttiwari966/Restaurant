@@ -1,0 +1,20 @@
+<%= form_tag "/restaurants/owner_login" do%>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Only For Restaurant Owner</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+      <div class="mb-3">
+        <label for="fssi_number" class="col-form-label">FSSI Number:</label>
+        <input type="text" name="fssi_number" class="form-control" id="fssi_number" autocomplete="false">
+      </div>
+      <div class="mb-3">
+        <label for="secret_code" class="col-form-label">Secret Code:</label>
+        <textarea class="form-control" name="secret_code" id="secret_code"></textarea>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button class="btn btn-primary">Go to Login</button>
+  </div>
+<%end%>

@@ -12,17 +12,42 @@
  *
  *= require_tree .
  *= require_self
+ *= require select2
  */
 @import "bootstrap/scss/bootstrap";
+@import "font-awesome";
 
 body{
   background: #d6d7e526;
 }
 
+.alert-success, .alert-warning {
+  padding: 9px;
+  margin: 3px 36px;
+}
+
+.alert-dismissible .btn-close {
+  padding: 0.85rem 1rem !important;
+}
+
 nav{
-  background: #ff2300;
+/*  background: #ff2300;*/
+  background: #253893
 }
 .nav-link{
   font-weight: 600;
   color: white !important;
+}
+
+.custome-food-i{
+  color: white;
+  margin: 0px 20px;
+  padding: 12px;
+  font-size: 20px;
+  background: red;
+  border-radius: 50%;
+}
+
+.container{
+  max-width: 1250px;
 }

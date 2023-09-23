@@ -1,0 +1,137 @@
+<section class="restaurant-main-page py-2">
+  <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#add-restaurant" data-bs-whatever="@mdo">Add Restaurant</button>
+
+  <div class="resto-index my-3">
+    <table class="table caption-top">
+      <!-- <caption>List of restaurants</caption> -->
+      <thead class="table-thead">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col"><b>Name</b></th>
+          <th scope="col"><b>Adress</b></th>
+          <th scope="col"><b>Open On</b></th>
+          <th scope="col"><b>Open Time</b></th>
+          <th scope="col"><b>Close Time</b></th>
+          <th scope="col"><b>Actions</b></th>
+        </tr>
+      </thead>
+      <tbody class="resto-body-tr">
+        <% @restaurants.each_with_index do |restaurant, index|%>
+        <tr style="height: 20px;">
+          <th scope="row"><%= index+1%></th>
+          <td><%= restaurant.name%></td>
+          <td><%= restaurant.address%></td>
+          <td><%= restaurant.opened_on%></td>
+          <td><%= restaurant.open_time.strftime("%I:%M%p")%></td>
+          <td><%= restaurant.close_time.strftime("%I:%M%p")%></td>
+          <td>
+            <button type="button" class="edit-button-resto" data-bs-toggle="modal" data-bs-target="#edit-restaurant-<%= restaurant.id%>" title="edit">
+              <i class="fa-solid fa-pen-to-square fa-shake" style="color: #ada00e;"></i>
+            </button>
+
+            <button type="button" class="edit-button-resto" data-bs-toggle="modal" data-bs-target="#show-restaurant-<%= restaurant.id%>" title="show">
+              <i class="fa-solid fa-eye fa-beat" style="color: #032663;"></i>
+            </button>
+            <%= link_to restaurant_owner_path(restaurant), method: :delete, data: { confirm: "Are you sure?"}, title:"delete" do%>
+              <i class="fa-solid fa-trash fa-bounce" style="color: red;"></i>
+            <%end%>
+
+            <button type="button" class="btn btn-outline-primary btn-sm menu-add" title="add menu" data-id="<%= restaurant.id%>">
+              Add Menu
+            </button>
+
+            <%= link_to "items", restaurant_owner_path(restaurant), class:"btn btn-sm btn-primary"%>
+          </td>
+        </tr>
+
+        <!-- edit restaurant details-->
+        <div class="modal fade" id="edit-restaurant-<%= restaurant.id%>" tabindex="-1" aria-labelledby="restaurantLable" aria-hidden="true">
+          <div class="modal-dialog">
+            <%= render "restaurant/owners/form", restaurant: restaurant, path: restaurant_owner_url(restaurant)%>
+          </div>
+        </div>
+
+        <!-- show restaurant details -->
+        <div class="modal fade" id="show-restaurant-<%= restaurant.id%>" tabindex="-1" aria-labelledby="restaurantLable" aria-hidden="true">
+          <div class="modal-dialog">
+            <%= render "restaurant/owners/show", restaurant: restaurant%>
+          </div>
+        </div>
+
+        <!-- Add menus for restaurant -->
+        <div class="card add-menu-resto mx-2 px-2 d-none" id="add-menu-resto-<%= restaurant.id%>">
+          <h5 class="text-center py-2"><%= restaurant.name%></h5>
+          <%= render "restaurant/owners/add_menu", restaurant: restaurant, menu: Menu.new, path: restaurant_menus_path%>
+        </div>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Add new restaurant -->
+<div class="modal fade" id="add-restaurant" tabindex="-1" aria-labelledby="restaurantLable" aria-hidden="true">
+  <div class="modal-dialog">
+    <%= render "restaurant/owners/form", restaurant: Restaurant.new, path: restaurant_owners_url%>
+  </div>
+</div>
+
+
+<style type="text/css">
+  i{
+    font-size: 20px;
+    padding: 2px 8px;
+  }
+  .edit-button-resto{
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  .add-menu-resto{
+    width: 30%;
+    box-shadow: 0px 0px 10px #00000026;
+    background: #253893;
+    color: white;
+    font-weight: 600;
+  }
+
+  .table{
+/*    display: block;*/
+    border-collapse: collapse;
+    border-radius: 10px !important;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px #00000026;
+  }
+
+ /* thead{
+    background: #253893 !important;
+  }
+
+  thead th{
+    color: white !important;
+  }*/
+
+
+  .add-flex{
+    display: flex;
+    flex-direction: row-reverse !important;
+    gap: 20px;
+  }
+</style>
+
+<script type="text/javascript">
+  $(".menu-add").click(function(){
+    $(".add-menu-resto").each(function( index ) {
+      $(`.add-menu-resto`).addClass('d-none')
+    });
+    var id = $(this).attr('data-id')
+    $(".resto-index").addClass('add-flex')
+    $(`#add-menu-resto-${id}`).addClass('d-block')
+    $(`#add-menu-resto-${id}`).removeClass('d-none')
+  })
+</script>

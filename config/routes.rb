@@ -1,8 +1,32 @@
 Rails.application.routes.draw do
+
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  devise_for :users, as:"user", controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
   root "home#index"
   get 'home/index'
-  resources :restaurants
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  post 'likeunlike', to:"home#likeunlike"
+
+  resources :restaurants do
+    post :owner_login, on: :collection
+  end
+
+
+  namespace :users do
+    resources :dashboard do
+      post :add_card_item, to:"dashboard#add_card_item",on: :collection, as:"add_cart"
+      delete :delete_items, to:"dashboard#delete_items",on: :collection
+    end
+  end
+  
+  namespace :restaurant do
+    resources :owners
+    resources :menus
+  end
+  # match '*unmatched', to: 'application#not_found_method', via: :all
 end

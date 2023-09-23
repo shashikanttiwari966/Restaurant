@@ -1,0 +1,45 @@
+<%= form_tag "/users/sign_in", method: :post do%>
+  <div class="modal-body p-0">
+    <div class="login-as-user-div">
+      <div class="image-section">
+        <div class="image-wrapper">
+          <img src="https://i.imgur.com/FKyoBdM.jpg" alt="">
+        </div>
+
+        <div class="content-container text-center">
+          <h5 class="section-heading">Login As User....</h5>
+          <p class="section-paragraph">Get access to your Orders, Wishlist and Recommendations</p>
+          <img src="https://cdn-icons-png.flaticon.com/512/3462/3462558.png" alt="resto">
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-wrapper">
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="logo-container">
+            <a href="#" class="logo-container">
+              <img src="https://cdn-icons-png.flaticon.com/512/410/410370.png" alt="Logo">
+            </a>
+          </div>
+
+          <h4 class="text-center">Welcome Back!👋🏻</h4>
+          <p class="text-center">Enter your credentials to access your account.</p>
+
+          <div class="input-container">
+            <div class="form-group">
+              <label for="phone_number" class="col-form-label">Phone Number:</label>
+              <input type="text" name="login" class="form-control" id="phone_number" >
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
