@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
   end
 
   def owner_login
-    path = @user.present? ? user_user_session_path(login: params[:fssi_number]) : root_path
+    path = @user.present? ? user_session_path(login: params[:fssi_number]) : root_path
     message = @user.present? ? "Please login here." : "You entered wrong fssi number or secret code."
     redirect_to path, notice: message
   end

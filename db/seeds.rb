@@ -5,9 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-unless User.find_by_email('admin@example.com')
-  user = User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
-  user.roles.create(name: "Admin")
+
+unless AdminUser.find_by(:email => 'admin@example.com')
+  AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
 end
 
 Category.find_or_create_by(name: "Pizza")
@@ -15,4 +15,4 @@ Category.find_or_create_by(name: "Burger")
 Category.find_or_create_by(name: "Cake")
 Category.find_or_create_by(name: "Sandwich")
 Category.find_or_create_by(name: "Thali")
-Category.find_or_create_by(name: "Biyani")
+Category.find_or_create_by(name: "Biryani")

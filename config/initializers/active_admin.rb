@@ -350,19 +350,6 @@ ActiveAdmin.setup do |config|
   #
   # config.use_webpacker = true
 
-  config.namespace :admin do |admin|
-    admin.authentication_method = :authenticate_user!
-    admin.current_user_method = :current_user
-    admin.logout_link_path = :destroy_user_session_path
-  end
-
-  def authenticate_user!
-    debugger
-    unless current_user.admin?
-      redirect_to root_path
-    end
-  end
-
   meta_tags_options = { viewport: 'width=device-width, initial-scale=1' }
   config.meta_tags = meta_tags_options
   config.meta_tags_for_logged_out_pages = meta_tags_options

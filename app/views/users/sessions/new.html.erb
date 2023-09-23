@@ -25,7 +25,7 @@
     <p><i class="fa-solid fa-user-tie fa-beat-fade"></i></p>
     Owner Login
   </h2>
-  <%= form_for(resource, as: :user, url: user_user_session_path(:user)) do |f| %>
+  <%= form_for(resource, as: :user, url: user_session_path(:user)) do |f| %>
     <div class="form-outline mb-4">
       <%= f.email_field :email, autofocus: true, class:"form-control", id:"form2Example1", placeholder:"Email address"%>
     </div>

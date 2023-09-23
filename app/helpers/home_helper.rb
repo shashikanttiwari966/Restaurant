@@ -14,7 +14,7 @@ module HomeHelper
   end
 
   def get_link_card(menu)
-    CardItem.find_by(menu_id: menu.id).present? ? 'Remove to Card' : 'Add to Card'
+    CardItem.find_by(menu_id: menu.id, card_id: current_user&.card&.id).present? ? 'Remove to Card' : 'Add to Card'
   end
 
   def get_card_items_class(user)

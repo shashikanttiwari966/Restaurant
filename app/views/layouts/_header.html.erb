@@ -32,8 +32,8 @@
     </ul>
 
     <div class="px-3 d-flex">
-      <% if signed_in?%>
-        <%= link_to "<i class='fa-solid fa-right-from-bracket'></i>".html_safe, destroy_user_user_session_path(current_user), method: :delete, class:"nav-item"%>
+      <% if signed_in? && !current_user.admin?%>
+        <%= link_to "<i class='fa-solid fa-right-from-bracket'></i>".html_safe, destroy_user_session_path(current_user), method: :delete, class:"nav-item"%>
       <%else%>
         <a class="nav-link dropdown-toggle" href="javascript:;" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Login

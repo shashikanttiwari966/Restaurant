@@ -7,9 +7,9 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def create
-    # self.resource = warden.authenticate!(auth_options)
     return redirect_to restaurant_owners_path, notice:"You are already login as Restaurant Owner" if signed_in?
-    self.resource = warden.authenticate!({:scope=>:user, :recall=>"users/sessions#new"})
+    self.resource = warden.authenticate!(auth_options)
+    # self.resource = warden.authenticate!({:scope=>:user, :recall=>"users/sessions#new"})
     set_flash_message(:notice, :signed_in) if is_navigational_format?
     sign_in(:user, resource)
     redirect_to restaurant_owners_path, notice:"You have login as Restaurant Owner"
