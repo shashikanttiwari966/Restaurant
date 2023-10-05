@@ -16,10 +16,22 @@
  */
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-body{
-  background: #d6d7e526;
+body {
+  font-family: Montserrat, sans-serif;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+/*  background-color: #28223F;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  flex-direction: column;*/
 }
+
+/*body{
+  background: #d6d7e526;
+}*/
 
 .alert-success, .alert-warning {
   padding: 9px;

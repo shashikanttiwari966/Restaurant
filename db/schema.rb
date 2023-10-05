@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_23_121544) do
+ActiveRecord::Schema.define(version: 2023_09_24_054610) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 2023_09_23_121544) do
     t.integer "menu_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "qty", default: 1
+    t.float "price"
     t.index ["card_id"], name: "index_card_items_on_card_id"
     t.index ["menu_id"], name: "index_card_items_on_menu_id"
   end
@@ -208,12 +210,13 @@ ActiveRecord::Schema.define(version: 2023_09_23_121544) do
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.string "login_token"
+    t.datetime "login_token_valid_until"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fssi_number"
     t.string "secret_code"
-    t.bigint "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

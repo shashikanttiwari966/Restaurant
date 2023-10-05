@@ -10,6 +10,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.4.4",
     "add": "^2.0.6",
+    "airplane": "^0.2.75",
     "arctic_admin": "^4.2.5",
     "bootstrap": "^5.3.1",
     "chart.js": "^4.4.0",

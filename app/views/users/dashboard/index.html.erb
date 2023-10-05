@@ -26,61 +26,10 @@
 </div>
 <hr>
 <section class="lists-card-item">
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="row card-item-header card-item-comon">
-        <div class="col-sm-3">Item</div>
-        <div class="col-sm-3">Name</div>
-        <div class="col-sm-3">Quantity</div>
-        <div class="col-sm-3">Price</div>
-      </div>
-      <% @card_item.each do |card_item|%>
-        <div class="row card-item-comon align-items-center">
-          <div class="col-sm-3"><%= image_tag card_item.menu.item_detail.image, width:"100", height:"50"%></div>
-          <div class="col-sm-3"><%= card_item.menu.item_detail.name%></div>
-          <div class="col-sm-3">
-            <div class="wrapper" id="wrapper-card-<%= card_item.menu.id%>">
-              <span class="minus"><i class="fa-solid fa-minus"></i></span>
-              <span class="num" id="card-item-qty-<%= card_item.menu.id%>">1</span>
-              <span class="plus"><i class="fa-solid fa-plus"></i></span>
-            </div>
-          </div>
-          <div class="col-sm-3"><%= card_item.menu.price%> <i class="fa-solid fa-circle-xmark"></i></div>
-        </div>
-      <%end%>
-    </div>
-    <div class="col-sm-6 px-5 py-3 bill-details">
-      <div class="row text-center mx-5">
-        <p class="my-3">Total Price: ₹<%= get_total_price(current_user.card)%></p>
-      </div>
-      <div class="item-info mx-5">   
-        <div class="row text-font">
-          <div class="col-sm-6">Item Price:</div>
-          <div class="col-sm-6 text-end"> ₹<%= get_item_price(current_user.card)%></div>
-        </div>
-        <div class="row text-font">
-          <div class="col-sm-6">Gst %:</div>
-          <div class="col-sm-6 text-end"> ₹<%= get_gst(current_user.card)%></div>
-        </div>
-        <div class="row text-font">
-          <div class="col-sm-6">Tax %:</div>
-          <div class="col-sm-6 text-end"> ₹<%= get_tax(current_user.card)%></div>
-        </div>
-        <div class="row text-font">
-          <div class="col-sm-6">Delivery Charge:</div>
-          <div class="col-sm-6 text-end"> ₹40</div>
-        </div>
-      </div>
-      <div class="row text-center mx-5">
-        <button class="btn btn-primary btn-sm my-2">Place Order</button>
-        <%= link_to "Clear Cart", delete_items_users_dashboard_index_path(), method: :delete, data: {confirm: "Are you sure?"}, class:"btn btn-danger btn-sm third"%>
-      </div>
-    </div>
-  </div>
+  <%= render "users/dashboard/item_card/added_item"%>
 </section>
 <hr>
 <style type="text/css">
-
   .bill-details{
     background: #fff;
   }
@@ -103,12 +52,12 @@
 
   .wrapper{
     color: #fff;
-    height: 30px;
+    height: 25px;
     min-width: 92px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #009557;
+    background: #253893;
     border-radius: 4px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
   }
@@ -121,5 +70,17 @@
     border-right: 2px solid rgba(0,0,0,0.2);
     border-left: 2px solid rgba(0,0,0,0.2);
     pointer-events: none;
+  }
+
+  .plus, .minus{    
+    padding: 0px 16px;
+    color: white;
+    font-weight: 800;
+  }
+
+  .wrapper input[type="text"]{
+    text-align: center;
+    height: 25px !important;
+    border-radius: 0px !important;
   }
 </style>

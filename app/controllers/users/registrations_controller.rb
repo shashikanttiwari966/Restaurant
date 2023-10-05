@@ -5,7 +5,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    
+    debugger
+    super
+    debugger
   end
 
   def destroy

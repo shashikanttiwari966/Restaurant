@@ -1,0 +1,225 @@
+<div class="user-profile d-flex">
+  <div class="card-container">
+    <span class="pro">PRO</span>
+    <img class="round" src="https://cdn0.iconfinder.com/data/icons/avatars-3/512/avatar_hipster_guy-512.png", width="200" alt="user" />
+    <h3 class="mt-3 mb-5">SHOPPER TEST</h3>
+    <h6>India</h6>
+    <p>Your role is Shopper.</p>
+    <div class="buttons">
+      <button class="btn btn-primary my-3">
+        Edit Profile
+      </button>
+    </div>
+  </div>
+
+  <div class="owner-dashboad">
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <div class="bg-light py-3 comon-class">
+          <h6>Total Earning</h6>
+          <p><strong>100</strong></p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="bg-light py-3 comon-class">
+          <h6>Ordered Item</h6>
+          <p><strong>110</strong></p>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="bg-light py-3 comon-class">
+          <h6>Complains</h6>
+          <p><strong>0</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-light mt-5 latest-update">
+      <h5>Latest updation on app -</h5><hr />
+      <marquee direction="up" height="250px">
+        <ol style="--length: 5" role="list">
+          <li style="--i: 1">
+            <h3>Discovery and assessment</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>
+          </li>
+          <li style="--i: 2">
+            <h3>Information gathering and analysis</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>
+          </li>
+          <li style="--i: 3">
+            <h3>Creating your claim</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>
+          </li>
+          <li style="--i: 4">
+            <h3>Approvals and submission</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>
+          </li>
+          <li style="--i: 5">
+            <h3>Receiving your benefit</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Adipiscing diam donec adipiscing tristique risus.</p>
+          </li>
+        </ol>
+      </marquee>
+    </div>
+  </div>
+</div>
+
+
+<style type="text/css">
+
+  .col-md-4 {
+    padding: 3px;
+    border: 2px solid white;
+    border-radius: 5px;
+    margin: 5px;
+    width: 32%;
+  }
+
+  h6 {
+    margin: 5px 0;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .comon-class{
+    border-radius: 5px;
+  }
+
+  .owner-dashboad{
+    background-color: #231E39;
+    width: 850px;
+    border-radius: 5px;
+    max-width: 100%;
+    margin: 0px 10px;
+    padding: 20px 50px;
+  }
+
+  .card-container {
+    background-color: #231E39;
+    border-radius: 5px;
+    box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+    color: #B3B8CD;
+    padding-top: 30px;
+    position: relative;
+    width: 350px;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .card-container .pro {
+    color: #231E39;
+    background-color: #FEBB0B;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 3px 7px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
+
+  .card-container .round {
+    border: 1px solid #03BFCB;
+    border-radius: 50%;
+    padding: 7px;
+  }
+
+  button.primary.ghost {
+    background-color: transparent;
+    color: #02899C;
+  }
+
+
+/*slider for latest update*/
+  body {
+  --h: 212deg;
+  --l: 43%;
+  --brandColor: hsl(var(--h), 71%, var(--l));
+  font-family: Montserrat, sans-serif;
+  margin: 0;
+  background-color: whitesmoke;
+}
+
+.latest-update p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.latest-update ol {
+  list-style: none;
+  counter-reset: list;
+  padding: 0 1rem;
+}
+
+.latest-update li {
+  --stop: calc(100% / var(--length) * var(--i));
+  --l: 62%;
+  --l2: 88%;
+  --h: calc((var(--i) - 1) * (180 / var(--length)));
+  --c1: hsl(var(--h), 71%, var(--l));
+  --c2: hsl(var(--h), 71%, var(--l2));
+  
+  position: relative;
+  counter-increment: list;
+  max-width: 45rem;
+  margin: 2rem auto;
+  padding: 2rem 1rem 1rem;
+  box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background-color: white;
+}
+
+.latest-update li::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, var(--c1) var(--stop), var(--c2) var(--stop));
+}
+
+.latest-update h3 {
+  display: flex;
+  align-items: baseline;
+  margin: 0 0 1rem;
+  color: rgb(70 70 70);
+}
+
+.latest-update h3::before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-right: 1rem;
+  width: 3rem;
+  height: 3rem;
+  content: counter(list);
+  padding: 1rem;
+  border-radius: 50%;
+  background-color: var(--c1);
+  color: white;
+}
+
+@media (min-width: 40em) {
+  .latest-update li {
+    margin: 3rem auto;
+    padding: 3rem 2rem 2rem;
+  }
+  
+  .latest-update h3 {
+    font-size: 2.25rem;
+    margin: 0 0 2rem;
+  }
+  
+  .latest-update h3::before {
+    margin-right: 1.5rem;
+  }
+}
+</style>

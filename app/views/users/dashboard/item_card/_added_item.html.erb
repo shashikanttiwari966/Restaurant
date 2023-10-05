@@ -1,0 +1,271 @@
+<%= form_tag '/' do%>
+  <div class="row added-item">
+    <div class="col-sm-6">
+      <div class="row card-item-header card-item-comon">
+        <div class="col-sm-3">Item</div>
+        <div class="col-sm-3">Name</div>
+        <div class="col-sm-3">Quantity</div>
+        <div class="col-sm-3">Price</div>
+      </div>
+      <% @card_item.each do |card_item|%>
+        <div class="row card-item-comon align-items-center">
+          <div class="col-sm-3"><%= image_tag card_item.menu.item_detail.image, width:"100", height:"50"%></div>
+          <div class="col-sm-3"><%= card_item.menu.item_detail.name%></div>
+          <div class="col-sm-3">
+            <div class="wrapper" id="wrapper-card-<%= card_item.menu.id%>">
+              <%= link_to "<i class='fa-solid fa-minus'></i>".html_safe,card_qty_users_dashboard_index_path(id: card_item.id, type:"decrese"), remote: :true, method: :post, class:"minus"%>
+              <%= text_field_tag :qty, card_item.qty, id:"card-item-qty-#{card_item.menu.id}", class:"item-qty", 'data-id':"#{card_item.id}"%>
+              <%= link_to "<i class='fa-solid fa-plus'></i>".html_safe,card_qty_users_dashboard_index_path(id: card_item.id, type:"increse"), remote: :true, method: :post, class:"plus"%>
+            </div>
+          </div>
+          <div class="col-sm-3" style="font-size: 15px;">
+            <span><%= card_item.menu.price%></span>
+            <i class="fa-solid fa-circle-xmark mx-2" style="color: #f926398a;"></i>
+          </div>
+        </div>
+      <%end%>
+    </div>
+    <div class="col-sm-6 px-5 py-3 bill-details">
+      <div class="row text-center mx-5">
+        <p class="my-3">Total Price: ₹<%= get_total_price(current_user.card)%></p>
+      </div>
+      <div class="item-info mx-5">   
+        <div class="row text-font">
+          <div class="col-sm-6">Item Price:</div>
+          <div class="col-sm-6 text-end"> ₹<%= get_item_price(current_user.card)%></div>
+        </div>
+        <div class="row text-font">
+          <div class="col-sm-6">Gst %:</div>
+          <div class="col-sm-6 text-end"> ₹<%= get_gst(current_user.card)%></div>
+        </div>
+        <div class="row text-font">
+          <div class="col-sm-6">Tax %:</div>
+          <div class="col-sm-6 text-end"> ₹<%= get_tax(current_user.card)%></div>
+        </div>
+        <div class="row text-font">
+          <div class="col-sm-6">Delivery Charge:</div>
+          <div class="col-sm-6 text-end"> ₹40</div>
+        </div>
+      </div>
+      <div class="row text-center mx-5">
+        <button class="btn btn-primary btn-sm my-2" type="button" id="order-place">Place Order</button>
+        <%= link_to "Clear Cart", delete_items_users_dashboard_index_path(), method: :delete, data: {confirm: "Are you sure?"}, class:"btn btn-danger btn-sm third"%>
+      </div>
+    </div>
+
+    <!-- Add order address -->
+    <div class="col-sm-6 px-5 py-3 d-none add-order-address">
+      <div class="row text-center mx-5">
+        <h6 style="opacity: 0.7;">Add Adress for order</h6>
+      </div>
+      <hr style="margin: 6px 0px;">
+      <div class="form-address">
+        <div class="fields fields--2">
+          <label class="field">
+            <span class="field__label" for="firstname">First name</span>
+            <%= text_field_tag :first_name, "Test", class:"field__input", id:"firstname"%>
+            <!-- <input class="field__input" type="text" id="firstname" value="John" /> -->
+          </label>
+          <label class="field">
+            <span class="field__label" for="lastname">Last name</span>
+            <%= text_field_tag :last_name, "User", class:"field__input", id:"lastname"%>
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field__label" for="address">Address</span>
+          <%= text_field_tag :address, "", class:"field__input", id:"address"%>
+        </label>
+
+        <label class="field">
+          <span class="field__label" for="country">Country</span>
+          <%= text_field_tag :country, "", class:"field__input", id:"country"%>
+        </label>
+
+        <div class="fields fields--3">
+          <label class="field">
+            <span class="field__label" for="zipcode">Zip code</span>
+            <%= text_field_tag :zipcode, "", class:"field__input", id:"zipcode"%>
+          </label>
+
+          <label class="field">
+            <span class="field__label" for="city">City</span>
+            <%= text_field_tag :city, "", class:"field__input", id:"city"%>
+          </label>
+
+          <label class="field">
+            <span class="field__label" for="state">State</span>
+            <%= text_field_tag :state, "", class:"field__input", id:"state"%>
+          </label>
+        </div>
+      </div>
+      <hr>
+      <button class="button" type="button" id="order-continue">Continue</button>
+    </div>
+
+    <!-- Add payment methods -->
+    <div class="col-sm-6 px-5 py-3 d-none payment-method">
+      <h5 class="text-center">Choose payment method</h5>
+      <hr style="margin: 6px 0px;">
+      <div class="d-flex payment_method_label">
+        <%= radio_button_tag :payment_method, "cod", class:"pay-comon"%>
+        <span class="field__label" for="cod">
+          <i class="fa-solid fa-money-bills"></i>
+          <span class="pay-label">Cash on Delivery</span>
+        </span>
+      </div>
+      <div class="d-flex payment_method_label">
+        <%= radio_button_tag :payment_method, "card", class:"pay-comon"%>
+        <span class="field__label" for="card">
+          <i class="fa-regular fa-credit-card"></i>
+          <span class="pay-label">Debit OR Credit Card</span>
+        </span>
+      </div>
+      <div class="d-flex payment_method_label">
+        <%= radio_button_tag :payment_method, "upi", class:"pay-comon"%>
+        <span class="field__label" for="upi">
+          <i class="fa-brands fa-cc-amazon-pay"></i>
+          <span class="pay-label">Upi</span>
+        </span>
+      </div>
+      <button class="btn btn-primary btn-sm w-100">Order Now</button>
+    </div>
+  </div>
+
+<%end%>
+
+<script type="text/javascript">
+  $("#order-place").click(function(){
+    $('.bill-details').addClass("d-none");
+    $('.add-order-address').removeClass("d-none");
+  });
+
+  $("#order-continue").click(function(){
+    $('.add-order-address').addClass("d-none");
+    $('.payment-method').removeClass("d-none");
+  });
+
+  $(".item-qty").change(function(){
+    var id = this.dataset.id
+    var qty = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: '/users/dashboard/card_qty',
+      data: { id: id, qty: qty, type: "qty"}
+    });
+  });
+</script>
+
+<style type="text/css">
+
+.form-address {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.form-address .container {
+  max-width: 40rem;
+  padding: 10vw 2rem 0;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+.field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-lighter-gray);
+  padding: .5rem;
+  border-radius: .25rem;
+}
+
+.field__label {
+  color: var(--color-gray);
+  font-size: 0.6rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem
+}
+
+.field__input {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+}
+.field:focus-within {
+  border-color: #000;
+}
+
+.fields {
+  display: grid;
+  grid-gap: 1rem;
+}
+.fields--2 {
+  grid-template-columns: 1fr 1fr;
+}
+.fields--3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button {
+  background-color: #000;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: block;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  border-radius: 0.25rem;
+  border: 0;
+  cursor: pointer;
+  outline: 0;
+}
+
+.button:focus-visible {
+  background-color: #333;
+}
+
+.payment-method input[type="radio"]:checked, input[type="radio"]{
+  border: 2px solid white;
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 25px !important;
+}
+
+.payment-method input[type="radio"]{
+  background: white;
+}
+
+.payment-method input[type="radio"]:checked {
+  background: #253893;
+}
+
+.payment_method_label{
+  font-size: 13px;
+  border: 1px solid green;
+  padding: 10px;
+  background: green;
+  color: white;
+  border-radius: 5px;
+  margin: 12px 0px;
+}
+
+.payment_method_label .field__label{
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.payment-method .btn-primary{
+  background: #253893;
+  padding: 6px 0px;
+  font-weight: 800;
+}
+</style>

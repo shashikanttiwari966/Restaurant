@@ -11,6 +11,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
 
+      ##
+      t.string :login_token
+      t.datetime :login_token_valid_until
+
       ## Rememberable
       t.datetime :remember_created_at
 

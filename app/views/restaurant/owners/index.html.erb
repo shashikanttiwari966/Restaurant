@@ -32,9 +32,7 @@
             <button type="button" class="edit-button-resto" data-bs-toggle="modal" data-bs-target="#show-restaurant-<%= restaurant.id%>" title="show">
               <i class="fa-solid fa-eye fa-beat" style="color: #032663;"></i>
             </button>
-            <%= link_to restaurant_owner_path(restaurant), method: :delete, data: { confirm: "Are you sure?"}, title:"delete" do%>
-              <i class="fa-solid fa-trash fa-bounce" style="color: red;"></i>
-            <%end%>
+            <%= link_to "<i class='fa-solid fa-trash fa-bounce' style='color: red;'></i>".html_safe, restaurant_owner_path(restaurant), method: :delete, data: { confirm: "Are you sure?"}, title:"delete"%>
 
             <button type="button" class="btn btn-outline-primary btn-sm menu-add" title="add menu" data-id="<%= restaurant.id%>">
               Add Menu

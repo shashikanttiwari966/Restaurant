@@ -1,13 +1,18 @@
 class Users::DashboardController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_menu, only: [:add_card_item]
   # before_action :check_role
 
   def index
     @card_item = current_user.card.card_items
   end
 
+  def user_profile
+    @current_user = current_user
+  end
+
   def add_card_item
-    card_item = current_user.card.card_items.find_or_initialize_by(menu_id: params[:menu_id])
+    card_item = current_user.card.card_items.find_or_initialize_by(menu_id: @menu.id, price: @menu.price)
     card_item.new_record? ? card_item.save : card_item.destroy 
     redirect_to root_path
   end
@@ -22,7 +27,28 @@ class Users::DashboardController < ApplicationController
     end
   end
 
+  def card_qty
+    @card_item = CardItem.find_by(id: params[:id])
+    qty = @card_item.qty.next if params[:type].eql?("increse")
+    qty = @card_item.qty.pred if params[:type].eql?("decrese")
+    qty = params[:qty].to_i if params[:type].eql?("qty")
+
+    @card_item.update(qty: qty, price: cal_price(qty))
+    if params[:type].eql?("decrese")
+      @card_item.destroy if @card_item.qty.eql?(0)
+    end
+    @card_item = current_user.card.card_items
+  end
+
   private
+
+  def cal_price(qty)
+    qty * @card_item.menu.price
+  end
+
+  def find_menu
+    @menu = Menu.find_by(id: params[:menu_id])
+  end
 
   def check_role
     redirect_to root_path, notice:"You need to sign or signup as User." unless current_user.user?

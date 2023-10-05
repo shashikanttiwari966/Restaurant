@@ -1,19 +1,19 @@
 class User < ApplicationRecord
-    # attr_accessor :login
+  # attr_accessor :login
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, 
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :registerable
 
   before_validation :set_role, on: :create
   validates_presence_of :email, if: :email_required?
   validates_presence_of :email, if: :password_required?
   validates_uniqueness_of :phone, if: :check_role?
 
-  has_many :restaurants
-  has_many :likes
-  has_one :card
+  has_many :restaurants, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_one :card, dependent: :destroy
 
   # after_create do
   #   self.add_role :Owner
@@ -48,15 +48,22 @@ class User < ApplicationRecord
   end
 
   protected
+
+  def password_required?
+    false
+  end
+
   def check_role?
     has_role? :User ? true : false
   end
 
   def email_required?
-    has_role? :User ? false : true
+    false
+    # has_role? :User ? false : true
   end
 
   def password_required?
-    has_role? :User ? false : true
+    false
+    # has_role? :User ? false : true
   end
 end

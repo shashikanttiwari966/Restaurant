@@ -3,8 +3,8 @@ class Restaurant < ApplicationRecord
   validates :image, presence: true
 
   belongs_to :user
-  has_many :promotions
+  has_many :promotions, dependent: :destroy
 
-  has_many :menus
-  has_many :item_details, through: :menus
+  has_many :menus, dependent: :destroy
+  has_many :item_details, through: :menus, dependent: :destroy
 end

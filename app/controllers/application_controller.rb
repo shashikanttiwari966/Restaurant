@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   before_action :authenticate_user!, unless: :devise_controller?
-  before_action :check_url, :create_cart
-  # before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :create_cart #,:check_url
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   # rescue_from ActiveRecord::RecordNotFound, :with => :not_found
@@ -28,19 +28,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def configure_permitted_parameters
-  #   if request.path.eql?("/users/sign_in") 
-  #   # devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :phone_number, :password, :password_confirmation, :remember_me) }
-  #     devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :fssi_number, :secret_code, :phone_number)}
-  #     devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :fssi_number, :secret_code, :phone_number)}
-  #   end
-  # end
-
-  def authenticate_user!
-    unless signed_in?
-      flash[:alert] = "You need to sign in or sign up before continuing."
-      redirect_back(fallback_location: root_path)
-    end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:phone_number) }
+    # devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :phone_number, :password, :password_confirmation, :remember_me) }
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :fssi_number, :secret_code, :phone_number)}
+    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :fssi_number, :secret_code, :phone_number)}
   end
  
   def user_not_authorized

@@ -8,11 +8,9 @@
 </div>
 
 <h5 class="text-center mt-5 mb-2">Items</h5>
-<div class="row hidden-md-up menu-lists">
+<div class="row hidden-md-up menu-lists" style="position: relative;bottom: 70px;">
   <%= render "home/index"%>
 </div>
-<div class="">dsa</div>
-<div class="">sad</div>
 <div class="bg-danger w-100 added-item <%= get_card_items_class(current_user)%>">
   <%= form_tag "/users/dashboard", method: :get, class:"d-flex", id:"submit-item" do%>
     <p class="m-0 text-light fw-bold">
