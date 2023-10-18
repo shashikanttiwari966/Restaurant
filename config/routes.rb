@@ -33,5 +33,7 @@ Rails.application.routes.draw do
     resources :owners
     resources :menus
   end
+
+  resources :transactions
   # match '*unmatched', to: 'application#not_found_method', via: :all
 end

@@ -1,7 +1,16 @@
 class Users::DashboardController < ApplicationController
+  require "rubygems"
+  require "braintree"
+
   before_action :authenticate_user!
   before_action :find_menu, only: [:add_card_item]
+  before_action :create_token, only: [:index]
   # before_action :check_role
+
+  Braintree::Configuration.environment = :sandbox
+  Braintree::Configuration.merchant_id = ENV['BRAINTREE_MERCHANT_ID']
+  Braintree::Configuration.public_key = ENV['BRAINTREE_PUBLIC_KEY']
+  Braintree::Configuration.private_key = ENV['BRAINTREE_PRIVATE_KEY']
 
   def index
     @card_item = current_user.card.card_items
@@ -41,6 +50,14 @@ class Users::DashboardController < ApplicationController
   end
 
   private
+
+  def create_token
+    begin
+      @token = current_user.customer_id.present? ? $gateway.client_token.generate(:customer_id => current_user.customer_id) : Braintree::ClientToken.generate
+    rescue Exception => e
+      redirect_to root_path, notice:"#{e.message}"
+    end
+  end
 
   def cal_price(qty)
     qty * @card_item.menu.price

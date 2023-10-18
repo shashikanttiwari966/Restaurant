@@ -20,7 +20,7 @@
     <%= render partial: "active_admin/devise/shared/links" %>
   </div>
 <%else%>
-<div class="container">
+<div class="container session-container">
   <h2 class="text-center my-5">
     <p><i class="fa-solid fa-user-tie fa-beat-fade"></i></p>
     Owner Login
@@ -58,6 +58,14 @@
 
 
 <style type="text/css">
+  .session-container{
+    background: white;
+    width: 40%;
+    padding: 25px;
+    border-radius: 10px;
+    top: 45px;
+    position: relative;
+  }
   form{
     display: flex;
     flex-direction: column;

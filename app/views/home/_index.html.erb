@@ -1,7 +1,7 @@
 <% @menus.each do |menu|%>
   <div class="col-md-4">
     <%= link_to root_path do %>
-      <div class="card my-2">
+      <div class="card my-2 p-2">
         <div class="card-block">
           <%= image_tag(menu.item_detail.image,alt:"Card image cap", height: 200, class:"card-img-top") %>
           <div id="flag"><p class="cat"><%= menu.item_detail.category.name%><p></div>
@@ -13,7 +13,12 @@
             </div>
             <div class="d-flex justify-content-between" style="gap: 16px;"> 
               <p class="card-text col-md-8">Some quick example text to build on the card title .</p>
-              <p class="col-md-4 item-price" >₹<%= menu.price%> for one</p>
+              <p class="col-md-4 item-price" >
+                <span><small>₹<s><%= menu.price%> for one</s></small></span><br>
+                <span class="discount-price text-success">
+                  ₹200 <small class="text-danger">40% off</small>
+                </span>
+              </p>
             </div>
             <div class="item-button d-flex justify-content-end" style="gap: 5px;">
               <button class="btn btn-primary btn-sm">Buy Now</button>

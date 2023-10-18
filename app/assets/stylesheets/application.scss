@@ -23,10 +23,21 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  background-image: url('photo-restau.jpeg');
+  background-attachment: fixed;
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
 /*  background-color: #28223F;*/
 /*  display: flex;*/
 /*  justify-content: center;*/
 /*  flex-direction: column;*/
+}
+
+.body-bg{
+  background: #06060699;
+  height: 100%;
+  width: 100%;
+  position: fixed;
 }
 
 /*body{
@@ -34,6 +45,9 @@ body {
 }*/
 
 .alert-success, .alert-warning {
+/*  z-index: 99;*/
+  position: relative;
+  top: 65px;
   padding: 9px;
   margin: 3px 36px;
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_24_054610) do
+ActiveRecord::Schema.define(version: 2023_10_10_093630) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -150,8 +150,12 @@ ActiveRecord::Schema.define(version: 2023_09_24_054610) do
     t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
   end
 
+  create_table "menus_orders", id: false, force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "menu_id", null: false
+  end
+
   create_table "orders", force: :cascade do |t|
-    t.integer "item_detail_id", null: false
     t.datetime "order_date"
     t.integer "status"
     t.float "discount_price"
@@ -160,7 +164,6 @@ ActiveRecord::Schema.define(version: 2023_09_24_054610) do
     t.text "delivery_address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["item_detail_id"], name: "index_orders_on_item_detail_id"
   end
 
   create_table "promotions", force: :cascade do |t|
@@ -217,6 +220,7 @@ ActiveRecord::Schema.define(version: 2023_09_24_054610) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "fssi_number"
     t.string "secret_code"
+    t.string "customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -242,7 +246,6 @@ ActiveRecord::Schema.define(version: 2023_09_24_054610) do
   add_foreign_key "cards", "users"
   add_foreign_key "menus", "item_details"
   add_foreign_key "menus", "restaurants"
-  add_foreign_key "orders", "item_details"
   add_foreign_key "promotions", "item_details"
   add_foreign_key "promotions", "restaurants"
   add_foreign_key "reviews", "orders"

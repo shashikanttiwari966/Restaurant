@@ -15,6 +15,12 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_one :card, dependent: :destroy
 
+  after_create do
+    user = $gateway.customer.create(:email => self.email)
+    self.update(customer_id: user.customer.id)
+    self.add_role :User if fssi_number.present?
+  end
+
   # after_create do
   #   self.add_role :Owner
   # end

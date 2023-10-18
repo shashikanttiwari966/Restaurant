@@ -1,14 +1,14 @@
-<h5 class="text-center my-5">Categories</h5>
+<h5 class="text-center my-5 text-light" style="font-weight: 800;">Categories</h5>
 <div class="row align-items-center d-flex justify-content-center">
   <% @categories.each do |cat|%>
     <!-- <div class="cat-name"> -->
-      <%= link_to cat.name, root_path(category_id: cat.id), class:"cat-name", style:"#{get_background(cat)}" %>
+      <%= link_to "<span>#{cat.name}</span>".html_safe, root_path(category_id: cat.id), class:"cat-name", style:"#{get_background(cat)}" %>
     <!-- </div> -->
   <%end%>
 </div>
 
 <h5 class="text-center mt-5 mb-2">Items</h5>
-<div class="row hidden-md-up menu-lists" style="position: relative;bottom: 70px;">
+<div class="row hidden-md-up menu-lists mt-5" style="position: relative;bottom: 70px;">
   <%= render "home/index"%>
 </div>
 <div class="bg-danger w-100 added-item <%= get_card_items_class(current_user)%>">
@@ -91,7 +91,7 @@
 
   .card-block{
     position: relative;
-    box-shadow: 0px 0px 10px gray;
+/*    box-shadow: 0px 0px 10px gray;*/
   }
 
   .card-block .cat{

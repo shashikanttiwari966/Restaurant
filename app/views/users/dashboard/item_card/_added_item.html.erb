@@ -1,6 +1,6 @@
-<%= form_tag '/' do%>
+<%= form_tag '/transactions' do%>
   <div class="row added-item">
-    <div class="col-sm-6">
+    <div class="col-sm-6 added-item-list">
       <div class="row card-item-header card-item-comon">
         <div class="col-sm-3">Item</div>
         <div class="col-sm-3">Name</div>
@@ -28,6 +28,7 @@
     <div class="col-sm-6 px-5 py-3 bill-details">
       <div class="row text-center mx-5">
         <p class="my-3">Total Price: ₹<%= get_total_price(current_user.card)%></p>
+        <%= hidden_field_tag :total_price, get_total_price(current_user.card)%>
       </div>
       <div class="item-info mx-5">   
         <div class="row text-font">
@@ -63,12 +64,12 @@
         <div class="fields fields--2">
           <label class="field">
             <span class="field__label" for="firstname">First name</span>
-            <%= text_field_tag :first_name, "Test", class:"field__input", id:"firstname"%>
+            <%= text_field_tag :first_name, "", class:"field__input", id:"firstname"%>
             <!-- <input class="field__input" type="text" id="firstname" value="John" /> -->
           </label>
           <label class="field">
             <span class="field__label" for="lastname">Last name</span>
-            <%= text_field_tag :last_name, "User", class:"field__input", id:"lastname"%>
+            <%= text_field_tag :last_name, "", class:"field__input", id:"lastname"%>
           </label>
         </div>
 
@@ -107,34 +108,62 @@
     <div class="col-sm-6 px-5 py-3 d-none payment-method">
       <h5 class="text-center">Choose payment method</h5>
       <hr style="margin: 6px 0px;">
-      <div class="d-flex payment_method_label">
-        <%= radio_button_tag :payment_method, "cod", class:"pay-comon"%>
-        <span class="field__label" for="cod">
-          <i class="fa-solid fa-money-bills"></i>
-          <span class="pay-label">Cash on Delivery</span>
-        </span>
-      </div>
+
       <div class="d-flex payment_method_label">
         <%= radio_button_tag :payment_method, "card", class:"pay-comon"%>
         <span class="field__label" for="card">
           <i class="fa-regular fa-credit-card"></i>
           <span class="pay-label">Debit OR Credit Card</span>
+          <div class="pay-pal d-none">
+            <form id="checkout" method="post" action="/transactions", remote: :false>
+              <div id="payment-form"></div>
+              <input type="submit" value="Pay ₹<%= get_total_price(current_user.card)%>">
+            </form>
+          </div>
         </span>
       </div>
+
       <div class="d-flex payment_method_label">
-        <%= radio_button_tag :payment_method, "upi", class:"pay-comon"%>
+        <%= radio_button_tag :payment_method, "upi", class:"pay-comon", id:"payment-upi"%>
         <span class="field__label" for="upi">
           <i class="fa-brands fa-cc-amazon-pay"></i>
           <span class="pay-label">Upi</span>
+          <div class="pay-upi d-none">
+            <form id="checkout-upi" method="post" action="/", remote: :false>
+              <input type="text" placeholder="+91XXXXXXXX">
+              <input type="submit" value="Pay ₹<%= get_total_price(current_user.card)%>", class="w-100">
+            </form>
+          </div>
         </span>
       </div>
-      <button class="btn btn-primary btn-sm w-100">Order Now</button>
+
+      <div class="d-flex payment_method_label">
+        <%= radio_button_tag :payment_method, "cod", class:"pay-comon", checked:"checked" %>
+        <span class="field__label" for="cod">
+          <i class="fa-solid fa-money-bills"></i>
+          <span class="pay-label">Cash on Delivery</span>
+        </span>
+      </div>
+      <!-- <button class="btn btn-primary btn-sm w-100 button" type="button">Order Now</button> -->
     </div>
   </div>
 
 <%end%>
 
+<script src="https://js.braintreegateway.com/js/braintree-2.20.0.min.js"></script>
+<script>
+// We generated a client token for you so you can test out this code
+// immediately. In a production-ready integration, you will need to
+// generate a client token on your server (see section below).
+var clientToken = "<%= @token %>";
+braintree.setup(clientToken, "dropin", {
+  container: "payment-form"
+});
+</script>
+<script src="https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.js"></script>
+
 <script type="text/javascript">
+
   $("#order-place").click(function(){
     $('.bill-details').addClass("d-none");
     $('.add-order-address').removeClass("d-none");
@@ -143,6 +172,16 @@
   $("#order-continue").click(function(){
     $('.add-order-address').addClass("d-none");
     $('.payment-method').removeClass("d-none");
+  });
+
+  $("#payment_method_card").click(function(){
+    $(".pay-pal").removeClass("d-none");
+    $(".pay-upi").addClass("d-none");
+  });
+
+  $("#payment_method_upi").click(function(){
+    $(".pay-pal").addClass("d-none");
+    $(".pay-upi").removeClass("d-none");
   });
 
   $(".item-qty").change(function(){
@@ -157,6 +196,59 @@
 </script>
 
 <style type="text/css">
+
+  #payment-form{
+    background-color: white;
+    margin: 10px 0px;
+    border-radius: 2px;
+  }
+
+  .pay-upi input[type="submit"]{
+    background: red;
+    padding: 6px;
+    font-weight: 800;
+    margin-top: 8px;
+  }
+
+  .pay-pal input[type="submit"]{
+    background: red;
+    padding: 6px;
+    font-weight: 800;
+  }
+
+  .button {
+  cursor: pointer;
+  font-weight: 500;
+  left: 3px;
+  line-height: inherit;
+  position: relative;
+  text-decoration: none;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+}
+
+.button--small {
+  padding: 10px 20px;
+  font-size: 0.875rem;
+}
+
+.button--green {
+  outline: none;
+  background-color: #64d18a;
+  border-color: #64d18a;
+  color: white;
+  transition: all 200ms ease;
+}
+
+.button--green:hover {
+  background-color: #8bdda8;
+  color: white;
+}
 
 .form-address {
   display: grid;
@@ -180,6 +272,7 @@
 }
 
 .field__label {
+  width: 100%;
   color: var(--color-gray);
   font-size: 0.6rem;
   font-weight: 300;

@@ -1,3 +1,14 @@
 // Place all the styles related to the Home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.cat-name span{
+  background: #00000080;
+  padding: 2px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+small{
+  font-size: 11px !important;
+}

@@ -227,10 +227,9 @@ nav .fa-right-from-bracket{
 </style>
 
 <script type="text/javascript">
-  let profile = document.querySelector('.profile');
-let menu = document.querySelector('.navmenu');
-
-profile.onclick = function () {
+  $('.profile').click(function () {
+    let profile = document.querySelector('.profile');
+    let menu = document.querySelector('.navmenu');
     menu.classList.toggle('active');
-}
+  })
 </script>
